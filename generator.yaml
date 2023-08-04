@@ -1,7 +1,6 @@
 ignore:
   resource_names:
     - AnomalyDetector
-    - CompositeAlarm
     - InsightRule
     - ManagedInsightRule
     - MetricStream
@@ -16,12 +15,27 @@ operations:
     operation_type:
     - List
     resource_name: MetricAlarm
+  PutCompositeAlarm:
+    operation_type:
+    - Create
+    - Update
+    resource_name: CompositeAlarm
   PutMetricAlarm:
     operation_type:
     - Create
     - Update
     resource_name: MetricAlarm
 resources:
+  CompositeAlarm:
+    fields:
+      Name:
+        is_primary_key: true
+        is_required: true
+    renames:
+      operations:
+        PutCompositeAlarm:
+          input_fields:
+            AlarmName: Name
   MetricAlarm:
     fields:
       Name:
